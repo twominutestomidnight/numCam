@@ -26,20 +26,23 @@ def getStartPeopleValue(ip,port,login,password):
     	</timeSpanList>
     </countingStatisticsDescription>
     """.format(st, st)
-    r = requests.get(url, auth=HTTPDigestAuth(login, password), data=payload)
+    try:
+        r = requests.get(url, auth=HTTPDigestAuth(login, password), data=payload)
 
-    #xmldoc = minidom.parseString(r.text)
-    enterCount = re.findall(r'<enterCount>(.*?)<\/enterCount>',r.text )
-    exitCount = re.findall(r'<exitCount>(.*?)<\/exitCount>',r.text )
+        #xmldoc = minidom.parseString(r.text)
+        enterCount = re.findall(r'<enterCount>(.*?)<\/enterCount>',r.text )
+        exitCount = re.findall(r'<exitCount>(.*?)<\/exitCount>',r.text )
 
-    print(enterCount)
-    print(exitCount)
+        #print(enterCount)
+        #print(exitCount)
 
-    #itemlist = xmldoc.getElementsByTagName('enterCount')
-    # for i in itemlist:
-    #    print(i.firstChild.nodeValue)
-    #day = datetime.datetime.today().weekday()
-    #startEnterValue = (int)(itemlist[day].firstChild.nodeValue)
-    # print("Len : ", itemlist)
+        #itemlist = xmldoc.getElementsByTagName('enterCount')
+        # for i in itemlist:
+        #    print(i.firstChild.nodeValue)
+        #day = datetime.datetime.today().weekday()
+        #startEnterValue = (int)(itemlist[day].firstChild.nodeValue)
+        # print("Len : ", itemlist)
 
-    return enterCount, exitCount
+        return enterCount, exitCount, "Online"
+    except:
+        return [], [], "Offline"
