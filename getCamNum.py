@@ -5,7 +5,7 @@ from xml.dom import minidom
 import re
 
 
-def getStartPeopleValue(ip,port,login,password):
+def getStartPeopleValue(ip,port,login,password,string):
 
     #url = 'http://192.168.30.50/ISAPI/System/Video/inputs/channels/1/counting/search/'
     url = 'http://{}:{}/ISAPI/System/Video/inputs/channels/1/counting/search/'.format(ip,port)
@@ -17,7 +17,7 @@ def getStartPeopleValue(ip,port,login,password):
     <countingStatisticsDescription
     	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    	<reportType>daily</reportType>
+    	<reportType>{}</reportType>
     	<timeSpanList>
     		<timeSpan>
     			<startTime>{}T00:00:00</startTime>
@@ -25,7 +25,7 @@ def getStartPeopleValue(ip,port,login,password):
     		</timeSpan>
     	</timeSpanList>
     </countingStatisticsDescription>
-    """.format(st, st)
+    """.format(string, st, st)
     try:
         r = requests.get(url, auth=HTTPDigestAuth(login, password), data=payload)
 
