@@ -107,15 +107,15 @@ if __name__ == '__main__':
 
 
             completeName = os.path.join(save_path, stri)
-            result = open(completeName, "w")
+            result = open(completeName, "w", encoding='utf8')
 
             #result.write("{}-{}-{} \n".format(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day))
-            result.write(str(datetime.datetime.now())+"\t\t\t00:00-01:00\t01:00-02:00\t02:00-03:00\t03:00-04:00\t04:00-05:00\t05:00-06:00\t"
+            result.write(str(datetime.datetime.now())+"\t\t\t\t00:00-01:00\t01:00-02:00\t02:00-03:00\t03:00-04:00\t04:00-05:00\t05:00-06:00\t"
                          "06:00-07:00\t07:00-08:00\t08:00-09:00\t09:00-10:00\t10:00-11:00\t"
                          "11:00-12:00\t12:00-13:00\t13:00-14:00\t14:00-15:00\t15:00-16:00\t16:00-17:00\t17:00-18:00\t"
                          "18:00-19:00\t19:00-20:00\t20:00-21:00\t21:00-22:00\t22:00-23:00\t23:00-24:00\n")
             #result.write(str(datetime.datetime.now())+"\n")
-            result.write("IP\tName\tDirections\tStatus\n")
+            result.write("""IP\tName\tDirections\tStatus\n""")
             print(len(camerasArray))
             i = 1
             for camer in camerasArray:
@@ -146,8 +146,12 @@ if __name__ == '__main__':
                 #print(enter)
                 #print(exit)
                 #print(status)
+                #print(camer.desc)
+                #print(type(camer.desc))    #= camer.desc.replace("'", "''")
+                #camer.desc = camer.desc.replace('"', '""')
+                #result.write(u"{}\t{}\t\t{}\n".format(camer.ip,camer.desc,status))
+                result.write(u"{}\t{}\t\t{}\n".format(camer.ip,camer.desc,status))
 
-                result.write("{}\t{}\t\t{}\n".format(camer.ip,camer.desc,status))
                 result.write('\t\tEnter')
                 result.write("\t\t")
                 for i in range(len(enter)):
