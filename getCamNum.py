@@ -1,5 +1,6 @@
 import requests
 import datetime
+from datetime import timedelta
 from requests.auth import HTTPDigestAuth
 from xml.dom import minidom
 import re
@@ -8,8 +9,13 @@ import re
 def getStartPeopleValue(ip,port,login,password,string):
 
     #url = 'http://192.168.30.50/ISAPI/System/Video/inputs/channels/1/counting/search/'
-    url = 'http://{}:{}/ISAPI/System/Video/inputs/channels/1/counting/search/'.format(ip,port)
+    url = 'http://{}:{}/ISAPI/System/Video/inputs/channels/1/counting/search/'.format(ip, port)
     #now = datetime.datetime.now()
+    date_format = '%Y-%m-%d'
+    today = datetime.datetime.now()
+    yesterday = today + timedelta(days=-1)
+    yesterday = yesterday.strftime(date_format)
+    #print(yesterday)
     st = "{}-{}-{}".format(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day)
 
     payload = """
@@ -25,7 +31,7 @@ def getStartPeopleValue(ip,port,login,password,string):
     		</timeSpan>
     	</timeSpanList>
     </countingStatisticsDescription>
-    """.format(string, st, st)
+    """.format(string, yesterday, yesterday)
     try:
         r = requests.get(url, auth=HTTPDigestAuth(login, password), data=payload)
 
